@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDCGDo23KP8Rn2whHPos5oIK_caEQ_8AFc",
-  authDomain: "ema-john-simple-f1584.firebaseapp.com",
-  projectId: "ema-john-simple-f1584",
-  storageBucket: "ema-john-simple-f1584.appspot.com",
-  messagingSenderId: "500694308745",
-  appId: "1:500694308745:web:de3965a9ebb55df30c7358"
+  apiKey: "AIzaSyCnWxzP4fU9v0WBsVDr06ApMdufg0EfVgI",
+  authDomain: "course-place-client.firebaseapp.com",
+  projectId: "course-place-client",
+  storageBucket: "course-place-client.appspot.com",
+  messagingSenderId: "609400779308",
+  appId: "1:609400779308:web:e59425d8f5bf0594969789"
 };
 
 // Initialize Firebase
