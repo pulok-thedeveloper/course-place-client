@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import heroImg from '../../Images/c-training-1024x580.png';
 import { FaArrowRight } from "react-icons/fa";
 import { AuthContext } from '../../Context/UserContext';
-import Footer from '../Shared/Footer/Footer';
 
 const Home = () => {
     const {mode} = useContext(AuthContext);
@@ -18,7 +17,6 @@ const Home = () => {
                 </div>
                 <img className='w-50 d-none d-lg-block' alt="" src={heroImg}></img>
             </div>
-            <Footer></Footer>
         </div>
     );
 };
