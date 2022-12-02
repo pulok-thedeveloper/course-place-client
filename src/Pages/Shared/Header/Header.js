@@ -1,16 +1,30 @@
 import React, { useContext } from 'react';
-import Container from 'react-bootstrap/Container';
+import { Container, Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/UserContext';
+import { FaUserAlt } from 'react-icons/fa';
+import logo from '../../../Images/logo.png'
 
 const Header = () => {
-    const { user,logOut } = useContext(AuthContext)
+    const { user, logOut, mode, handleToggle } = useContext(AuthContext);
+
+    const renderTooltip = (props) => (
+
+        <Tooltip id="button-tooltip" {...props}
+        >
+            {user?.displayName}
+        </Tooltip>
+    );
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
-                <Link to='/' className='navbar-brand text-decoration-none'>Course Place</Link>
+                <Link to='/' className='navbar-brand text-decoration-none'>
+                    <img className='me-2' src={logo} alt="" />
+                    Course Place
+                </Link>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
@@ -20,18 +34,41 @@ const Header = () => {
                         <Link className='nav-link' to="/faq">FAQ</Link>
                     </Nav>
 
-                    {
-                        user?.uid ?
-                            <Nav>
-                                
+                    <Nav className="d-flex align-items-center">
+                        <div className="form-check form-switch m-0 me-3">
+                            <input
+                                onClick={handleToggle}
+                                className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                            <label className="form-check-label text-white">
+                                {
+                                    mode ? 'Dark' : 'Light'
+                                }
+                            </label>
+                        </div>
+                        {
+                            user?.uid ?
                                 <Link className='nav-link' onClick={logOut}>Sign out</Link>
-                            </Nav>
-                            :
-                            <Nav>
-                                <Link className='nav-link' to="/signup">Sign Up</Link>
+
+                                :
                                 <Link className='nav-link' to="/login">Login</Link>
-                            </Nav>
-                    }
+                        }
+                        <OverlayTrigger
+                            placement="bottom"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={renderTooltip}
+                        >
+
+                        {
+                            user ?
+                                user?.photoURL ?
+                                    <img className="rounded-circle border border-3 ms-3" style={{ width: '40px' }} src={user.photoURL} alt="" />
+                                    :
+                                    <FaUserAlt></FaUserAlt>
+                                :
+                                <></>
+                        }
+                        </OverlayTrigger>
+                    </Nav>
 
                 </Navbar.Collapse>
             </Container>

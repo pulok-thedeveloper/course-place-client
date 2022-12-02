@@ -1,3 +1,4 @@
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
@@ -7,12 +8,15 @@ import { AuthContext } from '../../Context/UserContext';
 const Login = () => {
 
     const [error, setError] = useState(null);
-    const { signInUser } = useContext(AuthContext);
+    const { signInUser, googleSignIn, githubSignin } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider;
+    const githubProvider = new GithubAuthProvider;
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
     const handleLogIn = event => {
+        setError(null)
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
@@ -22,7 +26,7 @@ const Login = () => {
             .then(result => {
                 result = result.user;
                 form.reset();
-                navigate(from,{replace: true});
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.error(error);
@@ -30,6 +34,31 @@ const Login = () => {
             })
 
     }
+
+    const handleGoogleSignIn = () => {
+        googleSignIn(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
+    const handleGithubSignIn = () => {
+        githubSignin(githubProvider)
+            .then(result => {
+                result = result.user;
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
+
     return (
         <Container>
             <Row className='row justify-content-between'>
@@ -44,19 +73,27 @@ const Login = () => {
                             <Form.Label>Password</Form.Label>
                             <Form.Control name='password' type="password" placeholder="Your Password" required />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button className='mb-3' variant="primary" type="submit">
                             LogIn
-                        </Button><br></br><br></br>
+                        </Button>
+                        <br />
+
                         <Form.Text className="text-danger">
                             {
-                                error?
+                                error &&
                                 <p>{error}</p>
-                                :
-                                <p className='text-success'>Log in successfully</p>
                             }
                         </Form.Text>
                     </Form>
-                    <p>If your are new Then <Link to='/register'>Create a New account</Link> </p>
+                    <Button onClick={handleGoogleSignIn} className='mb-3 me-3' variant="info" type="submit">
+                        Login with Google
+                    </Button>
+
+                    <Button onClick={handleGithubSignIn} className='mb-3 me-3' variant="dark" type="submit">
+                        Login with GitHub
+                    </Button>
+                    
+                    <p>If your are new Then <Link to='/signup'>Create a New account</Link> </p>
                 </Col>
             </Row>
 

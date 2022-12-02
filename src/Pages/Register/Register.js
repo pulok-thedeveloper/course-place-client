@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/UserContext';
 
 
 const Register = () => {
     const [error, setError] = useState(null);
-    const {createUser} = useContext(AuthContext);
+    const {createUser, updateUser} = useContext(AuthContext);
+    const navigate = useNavigate()
 
     const handleSignUp = (event) => {
         setError(null)
@@ -30,9 +31,16 @@ const Register = () => {
 
         createUser (email, password)
         .then(result => {
-            const user  = result.user;
-            console.log(user);
+            updateUser(name, url)
+            .then(() => {
+            })
+            .catch(error =>{
+                console.error(error);
+                setError(error.code);
+            });
             form.reset();
+            navigate('/');
+            console.log(result.user)
         })
         .catch(error =>{
             console.error(error);

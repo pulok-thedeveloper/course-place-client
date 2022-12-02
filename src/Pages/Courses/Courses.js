@@ -3,7 +3,7 @@ import Course from '../Course/Course';
 
 const Courses = () => {
     const courses = useLoaderData();
-
+    
 
     console.log(courses[0]);
     return (

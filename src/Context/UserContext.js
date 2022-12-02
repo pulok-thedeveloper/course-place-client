@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth'
 
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -11,6 +11,12 @@ const auth = getAuth(app);
 const UserContext = ({children}) => {
 const [user, setUser] = useState(null);
 const [loading, setLoading] = useState(true);
+const [mode, setMode] = useState(false);
+
+
+const handleToggle =() =>{
+    setMode(!mode)
+}
 
 const createUser = (email, password) =>{
     
@@ -23,12 +29,17 @@ const signInUser = (email, password) =>{
     return signInWithEmailAndPassword(auth, email, password);
 }
 
-const providerLogin = (provider) =>{
+const googleSignIn = (provider) =>{
+    setLoading(true);
     return signInWithPopup(auth, provider);
 }
 
-const gitProviderLogin = (gitProvider) =>{
-    return signInWithPopup(auth, gitProvider);
+const githubSignin = (githubProvider) =>{
+    return signInWithPopup(auth, githubProvider);
+}
+
+const updateUser = (name, image) =>{
+    return updateProfile(auth.currentUser, {displayName:name, photoURL:image});
 }
 
 const logOut = () => {
@@ -45,7 +56,7 @@ useEffect(()=>{
     return () => unSubscribe();
 },[])
 
-const authInfo = {user, loading, createUser, signInUser, logOut, providerLogin, gitProviderLogin};
+const authInfo = {user, loading,handleToggle, mode, createUser, signInUser, updateUser, logOut, googleSignIn, githubSignin};
 
     return (
         <AuthContext.Provider value={authInfo}>
