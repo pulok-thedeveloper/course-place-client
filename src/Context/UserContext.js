@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth'
 
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -10,6 +10,8 @@ const auth = getAuth(app);
 
 const UserContext = ({children}) => {
 const [user, setUser] = useState(null);
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 const [loading, setLoading] = useState(true);
 const [mode, setMode] = useState(false);
 
@@ -29,14 +31,29 @@ const signInUser = (email, password) =>{
     return signInWithEmailAndPassword(auth, email, password);
 }
 
-const googleSignIn = (provider) =>{
-    setLoading(true);
-    return signInWithPopup(auth, provider);
-}
+const handleGoogleSignIn = () => {
+    signInWithPopup(auth, googleProvider)
+      .then(result => {
+        const user = result.user;
+        setUser(user);
+        console.log(user);
+      })
+      .catch(error => {
+        console.error('error: ', error);
+      })
+  }
 
-const githubSignin = (githubProvider) =>{
-    return signInWithPopup(auth, githubProvider);
-}
+  const handleGithubSignIn= () =>{
+    signInWithPopup(auth, githubProvider)
+    .then( result => {
+      const user = result.user;
+      setUser(user);
+      console.log(user);
+    })
+    .catch( error =>{
+      console.error ('error: ', error)
+    })
+  }
 
 const updateUser = (name, image) =>{
     return updateProfile(auth.currentUser, {displayName:name, photoURL:image});
@@ -56,7 +73,7 @@ useEffect(()=>{
     return () => unSubscribe();
 },[])
 
-const authInfo = {user, loading,handleToggle, mode, createUser, signInUser, updateUser, logOut, googleSignIn, githubSignin};
+const authInfo = {user, loading,handleToggle, mode, createUser, signInUser, updateUser, logOut, handleGoogleSignIn, handleGithubSignIn};
 
     return (
         <AuthContext.Provider value={authInfo}>

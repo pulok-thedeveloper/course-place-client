@@ -6,7 +6,7 @@ import { AuthContext } from '../../Context/UserContext';
 
 const Register = () => {
     const [error, setError] = useState(null);
-    const {createUser, updateUser} = useContext(AuthContext);
+    const {createUser, updateUser, handleGoogleSignIn, handleGithubSignIn} = useContext(AuthContext);
     const navigate = useNavigate()
 
     const handleSignUp = (event) => {
@@ -48,6 +48,7 @@ const Register = () => {
         });
 
     }
+
     return (
         <Container>
             <Row className='row justify-content-center'>
@@ -80,6 +81,13 @@ const Register = () => {
                             <p>{error}</p>
                         </Form.Text>
                     </Form>
+                    <Button onClick={handleGoogleSignIn} className='mb-3 me-3' variant="info" type="submit">
+                        Login with Google
+                    </Button>
+
+                    <Button onClick={handleGithubSignIn} className='mb-3 me-3' variant="dark" type="submit">
+                        Login with GitHub
+                    </Button>
                     <p>Already have an account? <Link to='/login'>Sign in</Link> </p>
                 </Col>
             </Row>

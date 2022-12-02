@@ -1,4 +1,3 @@
-import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
@@ -8,9 +7,7 @@ import { AuthContext } from '../../Context/UserContext';
 const Login = () => {
 
     const [error, setError] = useState(null);
-    const { signInUser, googleSignIn, githubSignin } = useContext(AuthContext);
-    const googleProvider = new GoogleAuthProvider;
-    const githubProvider = new GithubAuthProvider;
+    const { signInUser, handleGoogleSignIn, handleGithubSignIn} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -33,29 +30,6 @@ const Login = () => {
                 setError(error.code);
             })
 
-    }
-
-    const handleGoogleSignIn = () => {
-        googleSignIn(googleProvider)
-            .then(result => {
-                const user = result.user;
-                console.log(user)
-                navigate(from, { replace: true });
-            })
-            .catch(error => {
-                console.error(error);
-            })
-    }
-
-    const handleGithubSignIn = () => {
-        githubSignin(githubProvider)
-            .then(result => {
-                result = result.user;
-                navigate(from, { replace: true });
-            })
-            .catch(error => {
-                console.error(error);
-            })
     }
 
 
