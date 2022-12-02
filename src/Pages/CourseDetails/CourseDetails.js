@@ -30,7 +30,7 @@ const CourseDetails = () => {
                 <p>{course.details.learn}</p>
             </div>
             <div className='text-center my-5'>
-                <Link to='/checkout'>{mode ? <Button>Get Premium Access</Button> :
+                <Link to={`/checkout/${course.id}`}>{mode ? <Button>Get Premium Access</Button> :
                     <Button variant="dark">Get Premium Access</Button>}</Link>
             </div>
         </div>
