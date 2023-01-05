@@ -1,0 +1,15 @@
+.blog-title{
+    font-size: 1.1rem;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+.blog-title:hover{
+    color: #7673ac;
+}
+
+.publish-date{
+    font-size: 0.8rem;
+    color: #2E2D4D;
+    margin-bottom: 10px;
+}

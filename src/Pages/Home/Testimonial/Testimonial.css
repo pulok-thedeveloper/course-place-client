@@ -1,0 +1,21 @@
+.testimonial-card{
+    background-color: #afadd5;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.testimonial-card h5{
+    color: #ffffff;
+}
+
+.testimonial-card img{
+    width: 65px;
+}
+
+.testimonial-card h6{
+    font-size: 0.9rem;
+}
+
+.testimonial-card .course-name{
+    font-size: 0.8rem;
+}

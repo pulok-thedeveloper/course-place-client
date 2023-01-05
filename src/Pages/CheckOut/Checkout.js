@@ -2,8 +2,8 @@ import React from 'react';
 
 const Checkout = () => {
     return (
-        <div>
-             <h1> You Have got the premium access</h1>
+        <div className='min-screen-height'>
+             <h1>Congrats! You Have got the premium access.</h1>
         </div>
     );
 };

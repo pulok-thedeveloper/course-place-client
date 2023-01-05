@@ -18,17 +18,17 @@ export const routes = createBrowserRouter([
         children: [
             {
                 path: '/',
-                loader: async ()=> fetch('https://course-place-server.vercel.app/courses'),
+                loader: async ()=> fetch('https://course-place-server-pulok-thedeveloper.vercel.app/courses'),
                 element: <Home></Home>
             },
             {
                 path: '/courses',
-                loader: async ()=> fetch('https://course-place-server.vercel.app/courses'),
+                loader: async ()=> fetch('https://course-place-server-pulok-thedeveloper.vercel.app/courses'),
                 element: <Courses></Courses>
             },
             {
                 path: '/courses/:id',
-                loader: ({params})=> fetch(`https://course-place-server.vercel.app/courses/${params.id}`),
+                loader: ({params})=> fetch(`https://course-place-server-pulok-thedeveloper.vercel.app/courses/${params.id}`),
                 element: <CourseDetails></CourseDetails>
             },
             {
@@ -49,7 +49,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/checkout/:id',
-                loader: ({params})=> fetch(`https://course-place-server.vercel.app/courses/${params.id}`),
+                loader: ({params})=> fetch(`https://course-place-server-pulok-thedeveloper.vercel.app/courses/${params.id}`),
                 element: <PrivateRoute><Checkout></Checkout></PrivateRoute>
             },
         ]

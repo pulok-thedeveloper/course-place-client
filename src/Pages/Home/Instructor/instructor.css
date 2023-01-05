@@ -1,0 +1,12 @@
+.instructor-name{
+    font-size: 1.1rem;
+}
+
+.instructor-info, .skill{
+    font-size: 0.8rem;
+    color: #2E2D4D;
+}
+
+.skill{
+    margin-bottom: 10px;
+}

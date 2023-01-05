@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
-import { Container } from 'react-bootstrap';
-import blog1 from '../../Assests/blogs/blog-image1.jpg';
-import blog2 from '../../Assests/blogs/blog-image2.jpg';
-import blog3 from '../../Assests/blogs/blog-image3.png';
-import { AuthContext } from '../../Context/UserContext';
-
+import blog1 from '../../../Assests/blogs/blog-image1.jpg';
+import blog2 from '../../../Assests/blogs/blog-image2.jpg';
+import blog3 from '../../../Assests/blogs/blog-image3.png';
+import { AuthContext } from '../../../Context/UserContext';
+import './Blogs.css';
 
 const Blogs = () => {
     const { mode } = useContext(AuthContext);
-
     return (
-        <Container className="my-5">
+        <div className='my-5'>
+            <h3 className='fw-bold'>Resources & News</h3>
             <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1 my-5">
                 <div className="col">
                     <div>
@@ -43,7 +42,7 @@ const Blogs = () => {
                 </div>
 
             </div>
-        </Container>
+        </div>
     );
 };
 

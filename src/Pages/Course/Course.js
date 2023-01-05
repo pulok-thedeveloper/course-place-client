@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
-import { FaStopwatch } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const Course = ({ course }) => {
@@ -15,9 +14,9 @@ const Course = ({ course }) => {
                         bulk of the card's content.
                     </Card.Text>
                 </Card.Body>
-                <div className='text-center grid row justify-content-between gap-3 px-4'>
+                <div className='text-center grid row justify-content-between align-items-center gap-3 px-4'>
                     <p className='col bg-secondary rounded'>Lesson {course.lessons}</p>
-                    <p className='col bg-secondary rounded'><FaStopwatch></FaStopwatch> {course.duration}</p>
+                    <p className='col bg-secondary rounded'>{course.duration}</p>
                     <p className='col bg-secondary rounded'>Rating: {course.rating}</p>
                 </div>
                 <Card.Body>

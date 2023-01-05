@@ -3,14 +3,17 @@ import { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/UserContext';
+import { GithubAuthProvider, GoogleAuthProvider,signInWithPopup } from 'firebase/auth';
 
 const Login = () => {
 
     const [error, setError] = useState(null);
-    const { signInUser, handleGoogleSignIn, handleGithubSignIn} = useContext(AuthContext);
-    const navigate = useNavigate();
+    const { auth, setUser, signInUser } = useContext(AuthContext);
     const location = useLocation();
+    const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
+    const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
 
     const handleLogIn = event => {
         setError(null)
@@ -32,10 +35,35 @@ const Login = () => {
 
     }
 
+    const handleGoogleSignIn = () => {
+        signInWithPopup(auth, googleProvider)
+            .then(result => {
+                const user = result.user;
+                setUser(user);
+                navigate(from, { replace: true });
+                console.log(user);
+            })
+            .catch(error => {
+                console.error('error: ', error);
+            })
+    }
+
+    const handleGithubSignIn = () => {
+        signInWithPopup(auth, githubProvider)
+            .then(result => {
+                const user = result.user;
+                setUser(user);
+                console.log(user);
+            })
+            .catch(error => {
+                console.error('error: ', error)
+            })
+    }
+
 
     return (
         <Container>
-            <Row className='row justify-content-between'>
+            <Row className='row justify-content-between min-screen-height'>
                 <Col lg="5" className='mt-5'>
                     <Form onSubmit={handleLogIn}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -66,7 +94,7 @@ const Login = () => {
                     <Button onClick={handleGithubSignIn} className='mb-3 me-3' variant="dark" type="submit">
                         Login with GitHub
                     </Button>
-                    
+
                     <p>If your are new Then <Link to='/signup'>Create a New account</Link> </p>
                 </Col>
             </Row>
